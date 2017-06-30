@@ -1,1 +1,1 @@
-<?= $words ?>
+<?= $model->toJson() ?>

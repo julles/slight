@@ -1,9 +1,7 @@
 <?php
 
-spl_autoload_register(function($class){
-	include "Core/".$class.'.php';
-});
+include "../vendor/autoload.php";
+include "../protected/Config/register.php";
 
-$route = new Route();
 
 

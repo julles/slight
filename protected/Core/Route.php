@@ -1,4 +1,4 @@
-<?php
+<?php namespace Slight\Core;
 
 class Route
 {
@@ -30,12 +30,14 @@ class Route
 			if(!empty($this->urls[1]))
 			{
 				$this->method = $this->toCamelCase($this->urls[1]);
-			}	
+			}
+		}else{
+			$this->urls = [$this->controller];	
 		}
 
-		include "../protected/Controllers/".$this->controller.'.php';
+		$controllerString = "\Slight\Controllers\\".$this->controller;
 
-		$this->controllerClass = new $this->controller();
+		$this->controllerClass = new $controllerString();
 		
 		$this->runMethod();
 	}
@@ -78,7 +80,7 @@ class Route
 	{
 		return $controllerClass = ucwords($controller."Controller");
 	}
-
+	
 	public function controllerFile($controller)
 	{
 		$controller = trim($controller);
@@ -102,4 +104,6 @@ class Route
 	    
 	    return lcfirst($value);
 	}
+
+	
 }

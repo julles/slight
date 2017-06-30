@@ -1,0 +1,21 @@
+{
+    "name": "muhamadrezaar/slight",
+    "description": "PHP Microframework",
+    "type": "framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Muhamad Reza Abdul Rohim",
+            "email": "reza.wikrama3@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Slight\\": "protected/"
+        }
+    },
+    "require": {
+        "illuminate/database": "5.2.*"
+    }
+}
