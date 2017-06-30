@@ -5,3 +5,6 @@ spl_autoload_register(function($class){
 });
 
 $route = new Route();
+
+include "routes.php";
+

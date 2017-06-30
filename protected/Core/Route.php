@@ -29,7 +29,7 @@ class Route
 			
 			if(!empty($this->urls[1]))
 			{
-				$this->method = $this->urls[1];
+				$this->method = $this->toCamelCase($this->urls[1]);
 			}	
 		}
 
@@ -93,5 +93,18 @@ class Route
 		}
 
 		return $controllerName;
+	}
+
+	public function toCamelCase($value){
+	    $value = ucwords(str_replace(array('-', '_'), ' ', $value));
+	    
+	    $value = str_replace(' ', '', $value);
+	    
+	    return lcfirst($value);
+	}
+
+	public function getMethod($controller,$method)
+	{
+
 	}
 }

@@ -9,11 +9,16 @@ class HomeController
 
 	public function index()
 	{
-		echo "ini index";
+		echo "ini index <br/>";
 	}
 
 	public function tes($param1="",$param2="")
 	{
-		echo "ini param : ".$param2;
+		echo "ini tes <br/>";
+	}
+
+	public function loremIpsum($var="")
+	{
+		echo "param : " . $var.'<br/>';
 	}
 }
