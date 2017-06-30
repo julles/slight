@@ -1,20 +1,12 @@
 <?php 
 
-class HomeController
+class HomeController extends Controller
 {
-	public function __construct()
-	{
-		echo "Hai Ini Home Controller <br/>";
-	}
-
 	public function index()
 	{
-		echo "ini index <br/>";
-	}
-
-	public function tes($param1="",$param2="")
-	{
-		echo "ini tes <br/>";
+		return $this->view('home',[
+			'words' => 'Welcome Home Bro!',
+		]);
 	}
 
 	public function loremIpsum($var="")

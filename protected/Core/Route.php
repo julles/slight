@@ -102,9 +102,4 @@ class Route
 	    
 	    return lcfirst($value);
 	}
-
-	public function getMethod($controller,$method)
-	{
-
-	}
 }
