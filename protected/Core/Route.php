@@ -10,19 +10,54 @@ class Route
 
 	protected $urls;
 
+	protected $controllerClass;
+
 	public function __construct()
 	{
 
 		$this->controller = $this->controllerFile($this->controller);
 		
+		$this->init();
+	}
+
+	public function init()
+	{
 		if(isset($_GET['url']))
 		{
 			$this->urls = $this->urls($_GET['url']);	
-
 			$this->controller =  $this->controllerFile($this->urls[0]);
+			
+			if(!empty($this->urls[1]))
+			{
+				$this->method = $this->urls[1];
+			}	
 		}
 
-		include $this->controller;
+		include "../protected/Controllers/".$this->controller.'.php';
+
+		$this->controllerClass = new $this->controller();
+		
+		$this->runMethod();
+	}
+
+
+	public function runMethod()
+	{
+		$this->methodNotFound();
+
+		unset($this->urls[0]);
+		
+		unset($this->urls[1]);
+
+		call_user_func_array([$this->controllerClass, $this->method],$this->urls);
+	}
+
+	public function methodNotFound()
+	{
+		if(!method_exists($this->controllerClass, $this->method))
+		{
+			throw new Exception("Method ".$method.' Tidak di temukan');
+		}
 	}
 
 	public function sanitizeUrl($varUrl)
@@ -36,22 +71,27 @@ class Route
 
 	public function urls(String $urls)
 	{
-		return explode($this->sanitizeUrl($urls));
+		return explode("/",$this->sanitizeUrl($urls));
+	}
+
+	public function controllerClass($controller)
+	{
+		return $controllerClass = ucwords($controller."Controller");
 	}
 
 	public function controllerFile($controller)
 	{
 		$controller = trim($controller);
 
-		$controllerName = ucwords($controller."Controller.php");
+		$controllerName = $this->controllerClass($controller);
 		
-		$fileName = "../protected/Controllers/".$controllerName;
+		$fileName = "../protected/Controllers/".$controllerName.'.php';
 
 		if(!file_exists($fileName))
 		{
 			throw new Exception("Controller ".$controllerName.' tidak terdeteksi', 1);
 		}
 
-		return $fileName;
+		return $controllerName;
 	}
 }
